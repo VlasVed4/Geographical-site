@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Интерактивная карта достопримечательностей города Донской Тульской области.">
+  <meta name="theme-color" content="#173f35">
+  <title>Донской — город, который стоит открыть</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="preconnect" href="https://tile.openstreetmap.org">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="На главную">
+      <span class="brand-mark">Д</span>
+      <span><strong>ДОНСКОЙ</strong><small>Путеводитель по городу</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Главная навигация">
+      <a href="#map-section">Карта</a>
+      <a href="#places-section">Места</a>
+      <a href="#about-section">О проекте</a>
+    </nav>
+    <a class="header-cta" href="#map-section">Исследовать <span aria-hidden="true">↗</span></a>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> ТУЛЬСКАЯ ОБЛАСТЬ · РОССИЯ</div>
+        <h1>У каждого города<br>есть своя <em>история.</em></h1>
+        <p class="hero-lead">Откройте Донской с новой стороны: исторические места, памятники и тихие уголки города — на одной карте.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#map-section">Открыть карту <span>↗</span></a>
+          <a class="text-link" href="#places-section">Смотреть места <span>↓</span></a>
+        </div>
+        <div class="hero-note"><span class="note-icon">✳</span><span>Небольшой город с большим прошлым<br><b>Исследуйте в своём темпе</b></span></div>
+      </div>
+      <div class="hero-art" role="img" aria-label="Графическая иллюстрация города и маршрута">
+        <div class="art-sun"></div>
+        <div class="art-label art-label-top">ИСТОРИЯ РЯДОМ</div>
+        <svg class="city-illustration" viewBox="0 0 560 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M30 352 Q130 305 220 350 T530 338 L560 440 L0 440Z" fill="#d3d9b7"/>
+          <path d="M0 390 Q150 342 285 386 T560 365 L560 440 L0 440Z" fill="#a6b98e"/>
+          <path d="M65 345 L65 225 L145 225 L145 345Z" fill="#f5e8cb"/>
+          <path d="M52 230 L105 184 L158 230Z" fill="#c56d4c"/>
+          <path d="M85 345 L85 264 L125 264 L125 345Z" fill="#d3d9b7"/>
+          <path d="M190 350 L190 180 L280 180 L280 350Z" fill="#fff3d9"/>
+          <path d="M177 185 L235 130 L293 185Z" fill="#ba684c"/>
+          <path d="M215 130 L215 94 L255 94 L255 151Z" fill="#e4d2aa"/>
+          <path d="M210 95 L235 70 L260 95Z" fill="#ba684c"/>
+          <path d="M226 350 L226 220 L246 220 L246 350Z" fill="#d4b995"/>
+          <path d="M315 350 L315 250 L390 250 L390 350Z" fill="#e5c89c"/>
+          <path d="M305 253 L352 216 L400 253Z" fill="#c56d4c"/>
+          <path d="M425 350 L425 210 L495 210 L495 350Z" fill="#f8edd3"/>
+          <path d="M414 215 L460 176 L506 215Z" fill="#b96549"/>
+          <g fill="#476b58">
+            <circle cx="42" cy="340" r="25"/><circle cx="58" cy="325" r="30"/><circle cx="82" cy="342" r="24"/>
+            <circle cx="480" cy="340" r="32"/><circle cx="508" cy="326" r="28"/><circle cx="530" cy="347" r="25"/>
+          </g>
+          <g fill="#78917a">
+            <rect x="55" y="340" width="7" height="45"/><rect x="495" y="343" width="8" height="42"/>
+          </g>
+          <g fill="#8a624c">
+            <rect x="78" y="248" width="14" height="20" rx="2"/><rect x="113" y="248" width="14" height="20" rx="2"/>
+            <rect x="208" y="200" width="17" height="25" rx="2"/><rect x="250" y="200" width="17" height="25" rx="2"/>
+            <rect x="332" y="270" width="14" height="18" rx="2"/><rect x="365" y="270" width="14" height="18" rx="2"/>
+            <rect x="442" y="232" width="15" height="20" rx="2"/><rect x="468" y="232" width="15" height="20" rx="2"/>
+          </g>
+          <path d="M90 390 C160 365 180 415 270 385 S410 370 480 398" fill="none" stroke="#f8f2df" stroke-width="7" stroke-linecap="round"/>
+          <path d="M90 390 C160 365 180 415 270 385 S410 370 480 398" fill="none" stroke="#c5b89b" stroke-width="1.5" stroke-dasharray="4 7"/>
+          <circle cx="355" cy="230" r="18" fill="#173f35" stroke="#fff3d9" stroke-width="5"/>
+          <circle cx="355" cy="230" r="5" fill="#fff3d9"/>
+        </svg>
+        <div class="art-caption"><span class="caption-line"></span><span>ДОНСКОЙ<br><small>ОТКРОЙТЕ СВОЙ МАРШРУТ</small></span></div>
+        <div class="art-label art-label-bottom">54°00′ С.Ш. · 38°19′ В.Д.</div>
+      </div>
+      <div class="hero-bottom"><span>01 / ИНТЕРАКТИВНЫЙ ПУТЕВОДИТЕЛЬ</span><span>ПРОКРУТИТЕ, ЧТОБЫ ИССЛЕДОВАТЬ ↓</span></div>
+    </section>
+
+    <section class="intro-strip">
+      <div><span class="strip-number">01</span><p><b>История</b><small>Следы разных эпох</small></p></div>
+      <div><span class="strip-number">02</span><p><b>Культура</b><small>Места памяти и наследия</small></p></div>
+      <div><span class="strip-number">03</span><p><b>Маршруты</b><small>Планируйте прогулку</small></p></div>
+    </section>
+
+    <section class="section map-section" id="map-section">
+      <div class="section-heading">
+        <div><div class="eyebrow">КАРТА ГОРОДА</div><h2>Донской — <em>на карте</em></h2></div>
+        <p>Выберите категорию или нажмите на метку, чтобы узнать больше о месте.</p>
+      </div>
+      <div class="map-layout">
+        <aside class="map-sidebar">
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Найти место..." autocomplete="off"><kbd>↵</kbd></label>
+          <div class="filter-label">КАТЕГОРИИ <span id="result-count">0 мест</span></div>
+          <div class="filter-list" id="category-filters">
+            <button class="filter-chip active" data-category="all"><span class="filter-dot all-dot"></span> Все места</button>
+            <button class="filter-chip" data-category="history"><span class="filter-dot history-dot"></span> История</button>
+            <button class="filter-chip" data-category="architecture"><span class="filter-dot architecture-dot"></span> Архитектура</button>
+            <button class="filter-chip" data-category="memorial"><span class="filter-dot memorial-dot"></span> Памятные места</button>
+            <button class="filter-chip" data-category="leisure"><span class="filter-dot leisure-dot"></span> Отдых</button>
+          </div>
+          <div class="sidebar-divider"></div>
+          <div class="list-heading"><span>МЕСТА РЯДОМ С ИСТОРИЕЙ</span><span class="list-heading-star">✳</span></div>
+          <div class="map-place-list" id="map-place-list"></div>
+          <div class="sidebar-foot"><span class="live-dot"></span> Карта на основе OpenStreetMap</div>
+        </aside>
+        <div class="map-wrap">
+          <div id="map" aria-label="Интерактивная карта достопримечательностей Донского"></div>
+          <div class="map-top-label"><span class="map-pin-icon">⌖</span> ГОРОД ДОНСКОЙ <span class="map-top-separator">/</span> ТУЛЬСКАЯ ОБЛАСТЬ</div>
+          <button class="map-reset" id="map-reset" type="button" title="Показать весь город">↗ <span>Общий вид</span></button>
+        </div>
+      </div>
+      <p class="map-disclaimer">Координаты отдельных объектов требуют дополнительной проверки на местности. Информация представлена для учебного проекта.</p>
+    </section>
+
+    <section class="section places-section" id="places-section">
+      <div class="section-heading">
+        <div><div class="eyebrow">ВЫБРАННЫЕ МЕСТА</div><h2>Есть что <em>посмотреть</em></h2></div>
+        <p>Небольшая подборка мест, с которых можно начать знакомство с городом.</p>
+      </div>
+      <div class="catalog-tools">
+        <div class="catalog-count" id="catalog-count">Подборка достопримечательностей</div>
+        <button class="clear-favorites" id="favorites-toggle" type="button" aria-pressed="false">♡ Избранное</button>
+      </div>
+      <div class="place-grid" id="place-grid"></div>
+      <div class="empty-state" id="empty-state" hidden>Ничего не найдено. Попробуйте изменить поисковый запрос или фильтр.</div>
+    </section>
+
+    <section class="quote-section">
+      <div class="quote-mark">“</div>
+      <blockquote>Чтобы открыть новое место,<br>иногда достаточно <em>посмотреть внимательнее</em><br>на то, что рядом.</blockquote>
+      <div class="quote-rule"></div><span>ДОНСКОЙ · ТУЛЬСКАЯ ОБЛАСТЬ</span>
+    </section>
+
+    <section class="section about-section" id="about-section">
+      <div class="about-copy">
+        <div class="eyebrow">О ПРОЕКТЕ</div>
+        <h2>Город в одном<br><em>цифровом пространстве</em></h2>
+        <p>Проект «Интерактивная карта города Донской с достопримечательностями» предназначен для удобного знакомства с городскими объектами культурного и исторического интереса.</p>
+        <p>Карта объединяет географическое расположение мест, краткие справочные сведения и инструменты поиска, помогая пользователю самостоятельно спланировать прогулку.</p>
+      </div>
+      <div class="about-facts">
+        <div class="fact"><span class="fact-icon">⌖</span><div><b>Географическая карта</b><small>Leaflet + OpenStreetMap</small></div></div>
+        <div class="fact"><span class="fact-icon">⌕</span><div><b>Поиск и категории</b><small>Быстрый доступ к объектам</small></div></div>
+        <div class="fact"><span class="fact-icon">♡</span><div><b>Список избранного</b><small>Сохраняется в браузере</small></div></div>
+        <div class="fact"><span class="fact-icon">↗</span><div><b>Переход к маршруту</b><small>Открытие внешней карты</small></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#top"><span class="brand-mark">Д</span><span><strong>ДОНСКОЙ</strong><small>Путеводитель по городу</small></span></a>
+    <p>Учебный проект · Интерактивная карта достопримечательностей</p>
+    <a href="#top" class="back-top">Наверх ↑</a>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/places.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
